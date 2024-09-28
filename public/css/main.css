@@ -1,0 +1,164 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@400;500;600;700&family=Roboto:wght@100;400;500&display=swap');
+
+
+/* common csss*/
+:root {
+  --primaryColor: #ffff;
+  --secondryColor:  #3B3B6E;
+  --buttonColor:#3B3B6EBD;
+  --primaryFontColor: #000;
+  --secondryFontColor: #FF0000;
+  --primaryFontFamily: "Inter";
+  --secondaryFontFamily: "sans-serif";
+}
+
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+
+.btn-primary{
+
+  background-color: var(--buttonColor);
+  color: var(--primaryColor) !important;
+  border: var(--buttonColor);
+}
+
+.text-danger{
+  color:var(--secondryFontColor);
+}
+
+.btn-flat{
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.rating .fa-star{
+color:orange;
+}
+
+.rating:first-child{
+margin-left:0;
+}
+
+.rating:last-child{
+
+  margin-right: 5px;
+}
+
+
+
+
+
+
+.floating {  
+  animation-name: floating;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  /* margin-left: 30px;
+  margin-top: 5px; */
+}
+
+
+@keyframes floating {
+  0% { transform: translate(0,  0px); }
+  50%  { transform: translate(0, 15px); }
+  100%   { transform: translate(0, -0px); }    
+}
+
+
+
+.pulse:hover {
+  animation: pulse 2s infinite;
+}
+
+
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.1);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+/*
+*
+* ==========================================
+* Home page
+* ==========================================
+*
+*/
+
+
+
+/* navbar */
+
+.navbar-toggler.navbar-toggler-icon{
+    color: black !important;
+}
+
+/* search bar */
+
+.searchbar{
+  width: 35%;
+}
+
+
+
+.search:focus {
+    box-shadow: none;
+  }
+  
+  .form-control-underlined {
+    border-width: 1px solid black;
+    border-bottom-width: 1px;
+    border-radius: 0;
+    padding-left: 0;
+    
+  }
+
+
+  .search::placeholder {
+    font-size: 0.95rem;
+    color:black;
+    font-style: italic;
+  }
+
+
+  /* category */
+
+  .category_card:first-child{
+
+    margin-left:0px !important;
+
+  }
+
+  .category_card:last-child{
+    margin-left:0px !important;
+
+  }
+
+
+  /* posts */
+
+  .post{
+    font-family: var(--primaryFontFamily);
+    font-weight: 400;
+  }
+
+
+  /* footer */
+  footer{
+    background: var(--secondryColor);
+   
+
+  }
