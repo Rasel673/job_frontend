@@ -54,6 +54,30 @@ onMounted(() => {
     </section>
 
     <section v-if="singlePost">
+      <Head>
+        <Title>{{ singlePost.title }}</Title>
+
+        <Meta name="title" :content="singlePost.meta_title" />
+        <Meta name="description" :content="singlePost.meta_description" />
+        <Meta name="keywords" :content="singlePost.meta_tags" />
+
+        <Meta property="og:type" content="website" />
+        <Meta property="og:title" :content="singlePost.title" />
+        <Meta
+          property="og:description"
+          :content="singlePost.meta_description"
+        />
+        <Meta property="og:image" :content="singlePost.meta_image" />
+
+        <Meta name="twitter:card" content="summary_large_image" />
+        <Meta name="twitter:title" :content="singlePost.title" />
+        <Meta
+          name="twitter:description"
+          :content="singlePost.meta_description"
+        />
+        <Meta name="twitter:image" :content="singlePost.meta_image" />
+      </Head>
+
       <!-- post title -->
       <div class="row my-2">
         <div class="col-md-9">

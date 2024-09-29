@@ -21,25 +21,23 @@
           </div>
 
           <!--post pagination -->
-          <div class="row my-4">
+
+          <!--post pagination -->
+          <div class="row my-4" v-if="pagination">
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
+                <li
+                  class="page-item"
+                  :class="paginate.active ? 'active' : ''"
+                  v-for="(paginate, index) in pagination"
+                >
                   <a
                     class="page-link"
-                    href="#"
-                    tabindex="-1"
-                    aria-disabled="true"
-                    >Previous</a
-                  >
-                </li>
-                <li class="page-item active">
-                  <a class="page-link active" href="#">1</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
+                    @click="
+                      paginate.url != null ? fetchPosts(paginate.url) : ''
+                    "
+                    ><span v-html="paginate.label"></span>
+                  </a>
                 </li>
               </ul>
             </nav>
@@ -68,16 +66,20 @@ const apiBaseUrl = config.public.BASE_URL;
 const posts = ref(null);
 const route = useRoute();
 const id = route.params.id;
+const pagination = ref(null);
 const loaded = ref(false);
 
-const fetchPosts = async () => {
+const fetchPosts = async (
+  url = `${apiBaseUrl}post_by_category/${id}?page=1`
+) => {
   try {
-    const response = await $fetch(`${apiBaseUrl}post_by_category/${id}`);
-    // console.log(response);
+    const response = await $fetch(url);
+    console.log(response);
     let data = response.data;
     if (data.length > 0) {
       loaded.value = true;
       posts.value = data;
+      pagination.value = response.meta.links;
     }
 
     // console.log(response.data);

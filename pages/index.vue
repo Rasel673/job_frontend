@@ -75,26 +75,21 @@
           </div>
 
           <!--post pagination -->
-          <div class="row my-4">
+          <div class="row my-4" v-if="pagination">
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
+                <li
+                  class="page-item"
+                  :class="paginate.active ? 'active' : ''"
+                  v-for="(paginate, index) in pagination"
+                >
                   <a
                     class="page-link"
-                    href="#"
-                    tabindex="-1"
-                    aria-disabled="true"
-                    >Previous</a
-                  >
-                </li>
-
-                <li class="page-item active">
-                  <a class="page-link active" href="#">1</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
+                    @click="
+                      paginate.url != null ? fetchPosts(paginate.url) : ''
+                    "
+                    ><span v-html="paginate.label"></span>
+                  </a>
                 </li>
               </ul>
             </nav>
@@ -200,13 +195,15 @@ const apiBaseUrl = config.public.BASE_URL;
 
 const posts = ref(null);
 const categories = ref(null);
+const pagination = ref(null);
 
-const fetchPosts = async () => {
-  console.log(apiBaseUrl);
+const fetchPosts = async (url = `${apiBaseUrl}posts?page=1`) => {
   try {
-    const response = await $fetch(`${apiBaseUrl}posts`);
-    // console.log(response);
+    const response = await $fetch(url);
+    response.meta.links;
     posts.value = response.data;
+    pagination.value = response.meta.links;
+    // console.log(pagination.value);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
