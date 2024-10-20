@@ -12,7 +12,7 @@ const relatedPosts = ref(null);
 const fetchSingle = async () => {
   try {
     const response = await $fetch(`${apiBaseUrl}post/${id}`);
-    console.log(response.data[0]);
+    // console.log(response.data[0]);
     singlePost.value = response.data[0];
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -23,7 +23,7 @@ const fetchRelated = async () => {
   try {
     const response = await $fetch(`${apiBaseUrl}related_post/${id}`);
     // console.log(response.data[0]);
-    relatedPosts.value = response.data[0];
+    relatedPosts.value = response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -35,6 +35,7 @@ const readText = (text) => {
 
 onMounted(() => {
   fetchSingle();
+  fetchRelated();
 });
 </script>
 
@@ -85,7 +86,8 @@ onMounted(() => {
             {{ singlePost.title }}
           </h4>
           <p class="fs-bolder fs-6">Author: {{ singlePost.author.name }}</p>
-          <div class="rating d-flex">
+
+          <!-- <div class="rating d-flex">
             <span><i class="fa-solid fa-star ms-1"></i></span>
             <span><i class="fa-solid fa-star ms-1"></i></span>
             <span><i class="fa-solid fa-star ms-1"></i></span>
@@ -93,7 +95,7 @@ onMounted(() => {
             <span><i class="fa-solid fa-star ms-1 me-2"></i></span>
 
             (5 Reviews)
-          </div>
+          </div> -->
         </div>
         <div class="col-md-3">
           <Count-time :date="singlePost.apply_end_date" />
@@ -114,9 +116,25 @@ onMounted(() => {
                   class="btn btn-sm btn-primary m-1"
                   @click="readText(singlePost.description)"
                 >
-                  Listen
-                </button></span
-              >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-volume-up"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"
+                    />
+                    <path
+                      d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z"
+                    />
+                    <path
+                      d="M10.025 8a4.5 4.5 0 0 1-1.318 3.182L8 10.475A3.5 3.5 0 0 0 9.025 8c0-.966-.392-1.841-1.025-2.475l.707-.707A4.5 4.5 0 0 1 10.025 8M7 4a.5.5 0 0 0-.812-.39L3.825 5.5H1.5A.5.5 0 0 0 1 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 7 12zM4.312 6.39 6 5.04v5.92L4.312 9.61A.5.5 0 0 0 4 9.5H2v-3h2a.5.5 0 0 0 .312-.11"
+                    />
+                  </svg></button
+              ></span>
               {{ singlePost.description }}
             </p>
           </div>
@@ -149,13 +167,13 @@ onMounted(() => {
         </h5>
 
         <div class="text-center my-3" v-if="singlePost.apply_link">
-          <a
-            :href="singlePost.apply_link"
+          <nuxt-link
+            :to="singlePost.apply_link"
             class="btn btn-outline-success text-center"
             target="_blank"
           >
             আবেদন করুন
-          </a>
+          </nuxt-link>
         </div>
 
         <h5 class="fw-bold fs-5 col-md-12 text-primary my-3">
@@ -176,13 +194,13 @@ onMounted(() => {
         </p>
 
         <div class="text-center" v-if="singlePost.pdf">
-          <a
-            :href="singlePost.pdf"
+          <nuxt-link
+            :to="singlePost.pdf"
             target="_blank"
             class="btn btn-outline-success text-center text-danger"
           >
             বিজ্ঞপ্তি পিডিএফ ডাউনলোড করুন
-          </a>
+          </nuxt-link>
         </div>
       </div>
     </section>
@@ -193,19 +211,17 @@ onMounted(() => {
       <div class="row">
         <div class="d-flex justify-content-between">
           <a href="#" class="text-dark nav-link fs-50"><h4>Related Job</h4></a>
-          <a href="#" class="text-dark nav-link"> <b>See all</b></a>
         </div>
       </div>
       <div
         class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-lg-4"
       >
         <PostCard
-          v-for="index in 8"
+          v-for="(post, index) in relatedPosts"
           :key="index"
-          :id="index"
-          :title="singlePost.title"
-          :image="singlePost.thumbnail"
-          :description="singlePost.description"
+          :id="post.id"
+          :title="post.title"
+          :image="post.thumbnail"
         />
       </div>
     </section>

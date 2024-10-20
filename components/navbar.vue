@@ -30,10 +30,6 @@
             class="navbar-nav ms-auto mb-2 mb-lg-0 text-dark"
             v-if="categories"
           >
-            <!-- <li class="nav-item">
-                  <a class="nav-link active text-dark" aria-current="page" href="#">Home</a>
-                </li> -->
-
             <li
               class="nav-item dropdown"
               v-for="(category, index) in categories"
@@ -42,7 +38,6 @@
                 :to="`/category_posts-${category.id}`"
                 class="nav-link dropdown-toggle text-dark"
                 data-bs-toggle="dropdown"
-                href="#"
                 role="button"
                 aria-expanded="false"
                 v-if="category.sub_categories"

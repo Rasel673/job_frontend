@@ -8,7 +8,7 @@
             <h5 class="card-title fw-bolder fs-5">
               {{ title }}
             </h5>
-            <p class="card-text">
+            <p class="card-text" v-if="description">
               {{ description }}
             </p>
             <div class="d-grid gap-2">
@@ -25,7 +25,7 @@
 
 <script setup>
 const { id, title, image, description } = defineProps({
-  id: String,
+  id: Number,
   title: String,
   image: String,
   description: String,

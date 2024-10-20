@@ -74,7 +74,7 @@ const fetchPosts = async (
 ) => {
   try {
     const response = await $fetch(url);
-    console.log(response);
+    // console.log(response);
     let data = response.data;
     if (data.length > 0) {
       loaded.value = true;

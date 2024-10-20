@@ -14,7 +14,7 @@
 </template>
 <script setup>
 const { id, name, image } = defineProps({
-  id: String,
+  id: Number,
   name: String,
   image: String,
 });

@@ -109,7 +109,7 @@
       </div>
 
       <!-- quiz and notice section -->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-6 my-2">
           <div class="card">
             <h5 class="card-header text-center bg-danger text-white">
@@ -156,10 +156,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Job Preparation-->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12 my-2">
           <div class="card">
             <h5 class="card-header text-center bg-danger text-white">
@@ -183,7 +183,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </section>
   </div>
 </template>
